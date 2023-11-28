@@ -6,12 +6,13 @@ import 'package:movie_app/service/api/api_service_impl.dart';
 class MoviesRepoImpl implements  MoviesRepo {
 
   @override
-  Future<List<MoviesModel>> getMovies(int pageNo) async {
+  Future<List<MoviesModel>> getMovies( String apiUrl, int pageNo) async {
 
     final _apiService = ApiServiceImpl();
 
     try {
-      const String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
+      final String url = apiUrl;
+
 
       final response = await _apiService.get(path: url, pageNo: pageNo);
 

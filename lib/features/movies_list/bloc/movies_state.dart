@@ -23,6 +23,14 @@ final class MoviesLoadedState extends MoviesState{
   List<Object> get props => [movies];
 }
 
+final class DeleteMoviesState extends MoviesState{
+  final bool isDeleted ;
+  const DeleteMoviesState({required this.isDeleted});
+
+  @override
+  List<Object> get props => [isDeleted];
+}
+
 final class MoviesErrorState extends MoviesState {
   final String message;
 
@@ -31,3 +39,9 @@ final class MoviesErrorState extends MoviesState {
   List<Object> get props => [message];
 }
 
+final class SearchListState extends MoviesState {
+  final String query;
+  const SearchListState({required this.query});
+  @override
+  List<Object> get props => [query];
+}

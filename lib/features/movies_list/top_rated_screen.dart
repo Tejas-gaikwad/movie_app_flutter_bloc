@@ -4,15 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/features/movies_list/bloc/movies_bloc.dart';
 import 'package:movie_app/features/movies_list/view/movie_view.dart';
 
-class MoviesScreen extends StatelessWidget {
-  const MoviesScreen({Key? key}) : super(key: key);
+class TopRatedScreen extends StatelessWidget {
+  const TopRatedScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print('Hey ->> MoviesScreen');
+    print('Hey ->> TopRatedScreen');
     return BlocProvider(
-        create: (context) =>  MoviesBloc()..add( MoviesFetchEvent(1)),
-
+      create: (context) =>  MoviesBloc("https://api.themoviedb.org/3/movie/top_rated?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")..add( const MoviesFetchEvent(1)),
       child: const MovieView(),
     );
   }

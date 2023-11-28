@@ -13,3 +13,19 @@ class MoviesFetchEvent extends MoviesEvent {
   @override
   List<Object> get props => [];
 }
+
+class DeleteMoviesFromListEvent extends MoviesEvent {
+  final int index;
+  const DeleteMoviesFromListEvent(this.index);
+
+  @override
+  List<Object> get props => [index];
+}
+
+class SearchMovieEvent extends MoviesEvent {
+  final String query;
+  const SearchMovieEvent(this.query);
+
+  @override
+  List<Object> get props => [query];
+}
