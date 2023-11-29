@@ -4,15 +4,16 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/service/service.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
-
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'constants/server_config.dart';
 import 'home/dashboard.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runZonedGuarded(() {
     initService();
-    // initRepo();
-    apiService.init(baseUrl: ServerConfig.baseUrl);
+    apiService.init(baseUrl: ServerConfig.nowPlayingApiUrl);
     Bloc.observer = TalkerBlocObserver();
     runApp(const MyApp());
   }, (error, stack) {

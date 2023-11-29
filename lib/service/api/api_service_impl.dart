@@ -38,17 +38,17 @@ class ApiServiceImpl extends ApiService  {
     Map<String, dynamic>? query,
   }) async {
     try {
-
-
       final response = await _dio.get(
         path,
-        queryParameters: {'page': pageNo, 'per_page': 5}, // adjust parameters based on your API
+        queryParameters: {'page': pageNo, 'per_page': 20}, // adjust parameters based on your API
       );
+
+      print('Response ->>>  ${response.data}');
       return ApiResponse.fromDioResponse(
         response,
       );
     } on DioException catch (e) {
-      print('Do Error ->>> ${e.response}');
+      print('Dio Error ->>> ${e}');
       return ApiResponse.error(e.toString());
     } catch (e) {
       print('E ->>> ${e.toString()}');

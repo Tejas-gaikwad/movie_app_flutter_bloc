@@ -44,6 +44,16 @@ dependencies:
   talker_bloc_logger: ^2.2.0
   talker_dio_logger: ^2.3.0
   intl: ^0.18.1
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.6
+
+flutter_launcher_icons:
+  image_path: "assets/tmdb_icon.jpg"
+  adaptive_icon_foreground: "assets/tmdb_icon.jpg"
+  android: true
+  ios: true
+  image_path_ios: "assets/tmdb_icon.jpg"
+  adaptive_icon_background: "#ed1e79"
 
 dev_dependencies:
   flutter_test:
@@ -68,8 +78,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

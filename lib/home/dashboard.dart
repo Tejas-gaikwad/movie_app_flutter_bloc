@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import '../constants/colors.dart';
 import '../features/movies_list/bloc/movies_bloc.dart';
 import '../features/movies_list/now_playing_screen.dart';
@@ -13,83 +14,61 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> with SingleTickerProviderStateMixin {
-  // late FocusNode _focusNode;
-  // late TextEditingController _textEditingController;
-  // late AnimationController _animationController;
-  // late Animation<double> _animation;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _focusNode = FocusNode();
-  //   _textEditingController = TextEditingController();
-  //   _animationController = AnimationController(
-  //     vsync: this,
-  //     duration: const Duration(milliseconds: 300),
-  //   );
-  //   _animation = Tween<double>(begin: 0.0, end: -30.0).animate(_animationController);
-  //
-  //   _focusNode.addListener(() {
-  //     if (_focusNode.hasFocus) {
-  //       _animationController.forward();
-  //     } else {
-  //       _animationController.reverse();
-  //     }
-  //     setState(() {
-  //
-  //     });
-  //   });
-  // }
+  int _currentIndex = 0;
 
-  // @override
-  // void dispose() {
-  //   _focusNode.dispose();
-  //   _textEditingController.dispose();
-  //   _animationController.dispose();
-  //   super.dispose();
-  // }
+  final List<Widget> _tabs = [
+    const NowPlayingScreen(),
+    const TopRatedScreen(),
+  ];
+
+  @override
+  void initState() {
+
+    super.initState();
+    FlutterNativeSplash.remove();
+  }
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: SafeArea(
-        child: DefaultTabController(
-          length: 2, // Number of tabs
-          child: Scaffold(
-          backgroundColor: primaryColor,
-            body: Stack(
-            children: [
-                TabBarView(
-                children: [
-                  BlocProvider(
-                    create: (context) =>  MoviesBloc("https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")..add( const MoviesFetchEvent(1)),
-                    child : NowPlayingScreen(),
-                  ),
-
-                  TopRatedScreen(),
-                ],
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  color: primaryColor,
-                  child:  TabBar(
-                    indicatorColor: Colors.transparent,
-                    labelColor: Colors.black,
-                    unselectedLabelColor: Colors.grey.withOpacity(0.7),
-                    tabs: const [
-                      Tab( text: 'Now playing', icon: Icon(Icons.movie_creation_outlined)),
-                      Tab(text: 'Top rated', icon: Icon(Icons.star_border)),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+      backgroundColor: primaryColor,
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 1.0,
+        selectedItemColor: Colors.black,
+        selectedLabelStyle: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 14,
         ),
+        unselectedItemColor: Colors.grey,
+        backgroundColor: primaryColor,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+  
+          BottomNavigationBarItem(
+            icon: Icon(Icons.movie_creation_outlined),
+            label: 'Now playing',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star_border),
+            label: 'Top rated',
+          ),
+        ],
       ),
-     ),
-    ),
+      body: SafeArea(
+
+          child: _tabs[_currentIndex]),
+
+
+
+
    );
   }
 
